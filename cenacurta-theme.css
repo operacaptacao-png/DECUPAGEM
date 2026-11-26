@@ -1,0 +1,139 @@
+
+/* CenaCurta audiovisual — identidade pêssego/coral, aplicada aos dois módulos. */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+@font-face{
+  font-family:'CenaCurta Hoves';
+  src:local('TT Hoves Pro'),local('TT Hoves'),local('TT Hoves Pro Regular');
+  font-style:normal;font-weight:100 900;font-display:swap;
+}
+:root{
+ --bg:#fff7f0;--surface:#fffdfa;--dark:#241d1b;--muted:#836f67;
+ --line:#ead8c9;--accent:#f93437;--pale:#ffe8d6;
+ --shadow:0 14px 38px rgba(85,42,35,.07);--radius:17px;
+ font-family:'CenaCurta Hoves','TT Hoves Pro','TT Hoves','Manrope',Arial,sans-serif;
+ color:#241d1b;
+}
+html,body,button,input,textarea,select{font-family:'CenaCurta Hoves','TT Hoves Pro','TT Hoves','Manrope',Arial,sans-serif}
+body{background:#fff7f0;color:#241d1b}
+h1,h2,h3{letter-spacing:-.035em}
+button,a{transition:background-color .18s ease,color .18s ease,border-color .18s ease,box-shadow .18s ease,transform .18s ease}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #f9343778;outline-offset:2px}
+::selection{background:#ffd9c8;color:#29201e}
+.cc-eye-mark{display:block;width:100%;height:100%;object-fit:contain}
+.cc-logo-lockup{display:flex;align-items:center;gap:11px;min-width:0}
+.cc-logo-lockup .cc-word{display:flex;flex-direction:column;line-height:1.12;min-width:0}
+.cc-logo-lockup .cc-word strong{font-size:19px;letter-spacing:.19em;font-weight:300;white-space:nowrap}
+.cc-logo-lockup .cc-word small{font-size:9px;font-weight:800;letter-spacing:.22em;margin-top:5px;white-space:nowrap}
+.cc-logo-lockup .cc-logo-disc{width:50px;height:50px;flex:none}
+.cc-logo-lockup .cc-logo-disc .cc-eye-mark{filter:drop-shadow(0 5px 10px #e72d3620)}
+/* Área de decupagem */
+.sidebar{
+ background:#ffdfc8;color:#261b18;
+ border-right:1px solid #e9c7b2;
+ box-shadow:4px 0 35px #7f443015;
+}
+.brand{gap:12px;padding:9px 4px 27px;border-bottom:1px solid #edc5ac;margin-bottom:16px}
+.brand .brand-mark{width:53px;height:53px;min-width:53px;border-radius:50%;background:transparent;padding:0}
+.brand strong{font-size:17px;letter-spacing:.19em;font-weight:300;color:#211715}
+.brand span{color:#29201d;font-size:9px;letter-spacing:.15em;font-weight:800;margin-top:6px}
+.mode-picker{background:#ffe9d9;border:1px solid #efcab6;border-radius:12px;padding:5px;gap:5px}
+.mode-picker a{color:#705448;font-weight:700;font-size:12px}
+.mode-picker a.selected,.mode-picker a:hover{background:#f93437;color:#fff;box-shadow:0 3px 10px #f9343724}
+.new-project{background:#fa3337;color:#fff;border:1px solid #e92e31;box-shadow:0 6px 16px #fa333724;font-weight:800;border-radius:12px}
+.new-project:hover{background:#e7282b;transform:translateY(-1px)}
+.aside-label{color:#9d7563;letter-spacing:1.7px;font-size:10px}
+.project-link{color:#4d342a;background:transparent;border:1px solid transparent}
+.project-link:hover{background:#ffece0;border-color:#efcbb9}
+.project-link.active{background:#fffdfa;color:#261b18;border-color:#f5b6a7;box-shadow:0 5px 20px #91483512}
+.project-link .project-icon{border-color:#d9a593;color:#f93437}
+.project-link small{color:#967361}
+.sidebar-bottom{color:#715648;border-top-color:#edc4ac}
+.sidebar-bottom small{color:#9b7863}
+.side-dot{color:#f93437}
+.topbar{background:#fffaf6;border-bottom-color:#ead7c6;box-shadow:0 3px 18px #c6a18d12}
+.crumb{color:#a28370}.crumb span{color:#d0a996}.crumb b{color:#342520}
+.save-indicator{color:#9b5d4a}
+.primary-btn{background:#fa3337;border-color:#fa3337;color:white;box-shadow:0 5px 16px #fa33371c}
+.primary-btn:hover{background:#dd292d;border-color:#dd292d}
+.outline-btn{background:#fffdfa;color:#593f35;border-color:#e4cbbc}
+.outline-btn:hover{background:#fff0e5}
+.subtle-btn{background:#fff0e5;color:#a14631}
+.square-btn{border-color:#e9d7ca;color:#7b5e4c}
+.danger-btn{background:#fff0ea;color:#bb4341;border-color:#ffd0c6}
+.main{background:transparent}
+.eyebrow{color:#ed4841;letter-spacing:2.1px}
+.section-title{font-size:clamp(29px,3vw,39px);font-weight:700;color:#241b19}
+.section-caption,.section-row p{color:#806a61}
+.section-row h2{color:#30211d}
+.panel{background:#fffefa;border-color:#ead9cc;box-shadow:0 8px 30px #945e4710}
+.field label{color:#9b6c56;letter-spacing:1.1px}
+.field input,.field textarea{background:#fffaf7;border-color:#e9d9ce;color:#38271f}
+.field input:focus,.field textarea:focus{border-color:#f37a64;background:#fff}
+.tab{color:#8e6c5d}
+.tab.active{color:#e72e35;border-bottom-color:#fa3337}
+.scene-top,.day-header{background:#fff6ef}
+.scene-number{background:#fa3337;color:white}
+.scene-left p{color:#9a7969}
+.photo-area{background:#fff9f4;border-color:#ecd8c8}
+.photo-item{border-color:#e8d5c6}
+.photo-item img{background:#ffebdf}
+.welcome{background:#ffead9;border:1px solid #f0c8b3;border-radius:22px;overflow:hidden}
+.welcome h1{color:#2c1c19;font-weight:300;letter-spacing:-.045em}
+.welcome h1 strong{font-weight:800}
+.welcome p{color:#74574b}
+.welcome-art{background:#ffd6be}
+.welcome .primary-btn{font-size:13px}
+.empty-state{border-color:#ecd6c8;background:#fffdf9}
+.modal-box{background:#fffaf7}
+#toast{background:#30201d;color:white}
+@media(max-width:780px){.sidebar{border-right:0;border-bottom:1px solid #e9c7b2}.brand strong{font-size:16px}}
+
+/* Editor de roteiros: preserva a fonte de roteiro dentro da folha A4 */
+body:has(.cc-main-nav){background:#ffefe3!important;color:#251b18!important}
+body:has(.cc-main-nav) .cc-main-nav{
+ background:#ffdfc8!important;border-bottom:1px solid #e7c0aa;
+ box-shadow:0 3px 24px #b36e4820;
+}
+.cc-main-nav a{color:#4b352d!important;border-radius:10px}
+.cc-main-nav a.selected{background:#f93437!important;color:#fff!important}
+.cc-main-nav a:not(.selected):hover{background:#fff2e7;color:#8a2d2b!important}
+body:has(.cc-main-nav) aside{background:#ffdfc8!important;color:#261b18!important;border-right:1px solid #ecc5ae}
+body:has(.cc-main-nav) .logo-container{margin-bottom:29px;border-bottom:1px solid #ebc6b3;padding-bottom:20px}
+.cc-typographic-brand{color:#261b18!important;font-size:17px!important;letter-spacing:0!important;font-weight:400!important}
+.cc-typographic-brand.cc-logo-lockup{display:flex;align-items:center;gap:12px}
+.cc-typographic-brand .cc-word strong{color:#241b18;font-weight:300;font-size:17px;letter-spacing:.21em}
+.cc-typographic-brand .cc-word small{color:#241b18;font-weight:800;letter-spacing:.24em;font-size:9px}
+.cc-typographic-brand .cc-logo-disc{width:51px;height:51px}
+.btn-voltar-seta{background:#fff5eb!important;color:#6b4337!important;border:1px solid #e9c2ad!important}
+.btn-voltar-seta:hover{background:#ff3a3f!important;color:white!important}
+body:has(.cc-main-nav) aside>div[style*="font-size"]{color:#916a57!important}
+.item-projeto-wrapper{background:#fff0e5!important;border-left-color:#ee6859!important;border:1px solid #eccab6;border-left-width:4px!important}
+.item-projeto-wrapper.ativo{background:#fff8f3!important;border-color:#f93437!important}
+.cc-project-title{color:#3e2922!important;font-size:12px}
+.cc-small-delete{color:#ed353a!important}
+.cc-check{accent-color:#f93437}
+.cc-delete-selected{background:#f93437!important;color:white!important}
+.cc-save-indicator{color:#a64d42!important}
+#tela-inicial{background:#fff1e7!important}
+#tela-inicial h1{font-weight:300!important;color:#2e201b!important;letter-spacing:.12em!important}
+.cartao{background:#fffaf6!important;color:#3c2b24!important;border:1px solid #e8cfc0!important;border-radius:17px!important;box-shadow:0 7px 25px #bd715019!important}
+.cartao:hover,.cartao.selecionado{background:#ffe6da!important;color:#2b1d19!important;border-color:#f93437!important;box-shadow:0 6px 25px #f9343720!important}
+.cc-card-icon{color:#f93437!important;filter:none!important}
+#btn-iniciar{background:#f93437!important;border:1px solid #f93437!important;color:#fff!important;font-weight:800}
+#tela-editor{background:#fff1e6!important}
+.toolbar{background:#fffdfb!important;color:#2b201a!important;border-color:#ebd1be!important;box-shadow:0 10px 35px #925f3d18!important}
+.toolbar .btn-pill{background:#f93437!important;color:#fff!important;font-weight:800!important}
+.toolbar .btn-pill:hover{background:#d62830!important}
+.toolbar input{color:#3d2922!important}
+.folha-roteiro,#editor.folha-roteiro{
+ font-family:'Courier New',Courier,monospace!important;
+ color:#191817!important;background:#fff!important;
+ box-shadow:0 12px 40px #9e5b3720!important;
+}
+.folha-roteiro *{font-family:'Courier New',Courier,monospace!important}
+body:has(.cc-main-nav) .btn-pill:not(.toolbar .btn-pill){font-weight:750}
+@media(max-width:650px){
+ .cc-main-nav{justify-content:center}
+ body:has(.cc-main-nav) aside{border-bottom:1px solid #ecc5ae}
+ #tela-inicial{min-height:510px}
+}
