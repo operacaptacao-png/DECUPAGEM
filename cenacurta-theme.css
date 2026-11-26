@@ -137,3 +137,19 @@ body:has(.cc-main-nav) .btn-pill:not(.toolbar .btn-pill){font-weight:750}
  body:has(.cc-main-nav) aside{border-bottom:1px solid #ecc5ae}
  #tela-inicial{min-height:510px}
 }
+
+
+/* Identificação cromática dos projetos salvos no editor de roteiros — sem alterar o restante da interface. */
+.item-projeto-wrapper{--roteiro-cor:#e6424d;border-left:6px solid var(--roteiro-cor)!important;background:#fff8f2!important;align-items:center;gap:8px;padding:10px 9px}
+.item-projeto-wrapper.cinema{--roteiro-cor:#e6424d}
+.item-projeto-wrapper.publicidade{--roteiro-cor:#2e75c8}
+.item-projeto-wrapper.curto{--roteiro-cor:#8850bc}
+.item-projeto-wrapper.teatro{--roteiro-cor:#af7c20}
+.item-projeto-wrapper.podcast{--roteiro-cor:#b34b92}
+.item-projeto-wrapper.youtube{--roteiro-cor:#db6831}
+.item-projeto-wrapper.documentario{--roteiro-cor:#58718e}
+.item-projeto-wrapper.ativo{background:#fffefa!important;border-left-color:var(--roteiro-cor)!important;box-shadow:0 0 0 1px var(--roteiro-cor)}
+.item-projeto-wrapper:hover{background:#fffefa!important}
+.cc-project-info{display:flex;flex-direction:column;align-items:flex-start;gap:5px;flex:1;min-width:0}
+.cc-project-info .cc-project-title{min-width:0;width:100%;flex:none;color:#3e2922!important;font-weight:750;text-overflow:ellipsis}
+.cc-type-badge{background:color-mix(in srgb,var(--roteiro-cor) 12%,white);color:var(--roteiro-cor);border-radius:5px;padding:3px 6px;text-transform:uppercase;letter-spacing:.06em;font-size:9px;font-weight:800;line-height:1.1;white-space:nowrap}
