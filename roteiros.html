@@ -399,15 +399,20 @@ main{margin-top:58px;min-width:0}
         window.addEventListener('beforeunload',()=>{if(timerSalvamento){clearTimeout(timerSalvamento);salvarNoBanco()}});
         const selecionados = new Set();
         function atualizarLista() {
+            const rotulos={cinema:'Cinema',publicidade:'Publicidade',curto:'Vídeo curto',teatro:'Teatro',podcast:'Podcast',youtube:'YouTube',documentario:'Documentário'};
             const lista=document.getElementById('lista-projetos');
             let bd={};try { bd=JSON.parse(localStorage.getItem('meu_roteiro_bd')||'{}'); } catch(e) { console.warn(e); }
             lista.replaceChildren();
             for(const [id, p] of Object.entries(bd).reverse()) {
-                const wrap=document.createElement('div');wrap.className='item-projeto-wrapper '+(p.tipo||'cinema')+' '+(id===idAtual?'ativo':'');
+                const tipo=Object.hasOwn(rotulos,p.tipo)?p.tipo:'cinema';
+                const wrap=document.createElement('div');wrap.className='item-projeto-wrapper '+tipo+' '+(id===idAtual?'ativo':'');
                 const check=document.createElement('input');check.type='checkbox';check.className='cc-check';check.checked=selecionados.has(id);check.setAttribute('aria-label','Selecionar '+(p.titulo||'Sem título'));check.addEventListener('change',()=>{if(check.checked)selecionados.add(id);else selecionados.delete(id);atualizarBarraSelecao()});
+                const info=document.createElement('div');info.className='cc-project-info';
                 const open=document.createElement('button');open.className='cc-project-title';open.textContent=p.titulo||'Sem título';open.addEventListener('click',()=>carregar(id));
+                const badge=document.createElement('span');badge.className='cc-type-badge';badge.textContent=rotulos[tipo];
+                info.append(open,badge);
                 const del=document.createElement('button');del.className='cc-small-delete';del.title='Excluir roteiro';del.textContent='×';del.addEventListener('click',()=>excluir(id));
-                wrap.append(check,open,del);lista.append(wrap);
+                wrap.append(check,info,del);lista.append(wrap);
             }
             atualizarBarraSelecao();
         }
