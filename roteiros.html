@@ -293,6 +293,7 @@ main{margin-top:58px;min-width:0}
                 reader.readAsText(file);
             } 
             else if (ext === 'docx') {
+                if(!window.mammoth?.extractRawText){alert('Leitor DOCX indisponível. Verifique sua conexão.');return;}
                 const reader = new FileReader();
                 reader.onload = function(evt) {
                     mammoth.extractRawText({arrayBuffer: evt.target.result})
@@ -329,8 +330,7 @@ main{margin-top:58px;min-width:0}
                 document.getElementById('tela-inicial').style.display = 'flex';
                 idAtual = null;
             } else {
-                document.getElementById('tela-inicial').style.display = 'none';
-                document.getElementById('tela-login').style.display = 'flex';
+                window.location.href='/';
             }
         }
 
@@ -354,16 +354,28 @@ main{margin-top:58px;min-width:0}
         document.getElementById('editor').addEventListener('keydown', function(e) {
             if (e.key === 'Tab') {
                 e.preventDefault();
-                let node = window.getSelection().anchorNode.parentElement;
-                node.className = (node.className === 'personagem') ? 'acao' : 'personagem';
+                let anchor = window.getSelection()?.anchorNode;
+                let node = anchor?.nodeType===1?anchor:anchor?.parentElement;
+                if(node&&document.getElementById('editor').contains(node))node.className=(node.className === 'personagem')?'acao':'personagem';
             }
             if (e.key === 'Enter') {
                 setTimeout(() => {
-                    let node = window.getSelection().anchorNode.parentElement;
-                    if (node.previousElementSibling?.className === 'personagem') node.className = 'dialogo';
-                    else if (node.previousElementSibling?.className === 'dialogo') node.className = 'acao';
+                    const anchor=window.getSelection()?.anchorNode;
+                    const node=anchor?.nodeType===1?anchor:anchor?.parentElement;
+                    if(!node||!document.getElementById('editor').contains(node))return;
+                    if(node.previousElementSibling?.className==='personagem')node.className='dialogo';
+                    else if(node.previousElementSibling?.className==='dialogo')node.className='acao';
                 }, 10);
             }
+        });
+
+
+        document.getElementById('editor').addEventListener('paste',function(e){
+            const text=e.clipboardData?.getData('text/plain');
+            if(text==null)return;
+            e.preventDefault();
+            document.execCommand('insertText',false,text);
+            solicitarSalvamento();
         });
 
         function salvarNoBanco() {
