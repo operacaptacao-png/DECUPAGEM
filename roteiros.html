@@ -189,59 +189,7 @@ main{margin-top:58px;min-width:0}
 @media print{.cc-main-nav,aside,.toolbar,.cc-save-indicator{display:none!important}body,#tela-editor{background:#fff!important;overflow:visible!important;height:auto!important}main{margin:0!important}.folha-roteiro{box-shadow:none;margin:0;padding:0;width:100%;min-height:0}@page{size:A4;margin:23mm}}
 </style>
 <script defer src="./vendor/jspdf.umd.min.js"></script>
-<script>
-/* Exportação nativa do roteiro: paginação A4, sem recortar tela longa. */
-window.renderizarBaixar=function(){
- const ed=document.getElementById('editor'),titulo=document.getElementById('input-titulo').value||'Roteiro';
- if(!window.jspdf?.jsPDF){alert('Não foi possível carregar o gerador. Verifique a conexão e atualize.');return}
- try{
-  salvarNoBanco();
-  const pdf=new window.jspdf.jsPDF({unit:'mm',format:'a4',orientation:'portrait',compress:true}),maxY=273;
-  let y=25;
-  const font=(weight='normal',size=11)=>{pdf.setFont('courier',weight);pdf.setFontSize(size);pdf.setTextColor(32,29,26)};
-  const newPage=()=>{pdf.addPage();y=25};
-  const paragraph=(str,kind='acao')=>{
-   let content=String(str||'').replace(/\s+/g,' ').trim();if(!content){y+=4;return}
-   let x=25,w=160,align='left',gap=2,sz=11;
-   if(kind==='personagem'){x=62;w=86;align='center';gap=7}
-   if(kind==='dialogo'){x=53;w=105;gap=0}
-   if(kind==='parenteses'){x=65;w=80;align='center';gap=0}
-   if(kind==='transicao'){x=105;w=80;align='right';gap=7}
-   if(kind==='scene'||kind==='header'){gap=8}
-   const bold=['personagem','transicao','scene','header','section'].includes(kind);
-   font(bold?'bold':'normal',sz);
-   const lines=pdf.splitTextToSize(content,w);
-   if(y+gap+Math.min(lines.length*5,20)>maxY)newPage();y+=gap;
-   for(const line of lines){if(y+5>maxY)newPage();pdf.text(line,align==='center'?x+w/2:align==='right'?x+w:x,y,{align});y+=5}
-   y+=2;
-  };
-  const table=(t)=>{
-   const trs=[...t.querySelectorAll('tr')];let first=true;
-   for(const tr of trs){
-    const cells=[...tr.querySelectorAll('td,th')];if(!cells.length)continue;
-    const left=(cells[0]?.innerText||cells[0]?.textContent||'').trim();
-    const right=(cells[1]?.innerText||cells[1]?.textContent||'').trim();
-    font(first?'bold':'normal',9.5);const A=pdf.splitTextToSize(left,72),B=pdf.splitTextToSize(right,72);
-    const all=Math.max(A.length,B.length,1);let offset=0;
-    while(offset<all){if(y+12>maxY)newPage();
-      const lines=Math.max(1,Math.min(all-offset,Math.floor((maxY-y-9)/4.4)));
-      pdf.setDrawColor(218,206,193);pdf.rect(25,y-3,160,lines*4.4+8);pdf.line(105,y-3,105,y+lines*4.4+5);
-      pdf.text(A.slice(offset,offset+lines),29,y+2);pdf.text(B.slice(offset,offset+lines),109,y+2);
-      y+=lines*4.4+11;offset+=lines;
-    }first=false;
-   }
-  };
-  for(const node of [...ed.children]){
-    if(node.tagName==='TABLE'){table(node);continue}
-    let klass=[...node.classList].find(Boolean)||'acao';
-    if(node.tagName==='BR'){y+=4;continue}
-    paragraph(node.innerText||node.textContent,klass);
-  }
-  for(let n=1;n<=pdf.getNumberOfPages();n++){pdf.setPage(n);pdf.setFont('helvetica','normal');pdf.setFontSize(8);pdf.setTextColor(141,122,104);pdf.text(titulo.substring(0,70),25,285);pdf.text(String(n),185,285,{align:'right'})}
-  pdf.save(titulo.replace(/[^a-zA-Z0-9_-]+/g,'_').slice(0,70)+'.pdf');
- }catch(e){console.error(e);alert('Erro ao exportar: '+e.message)}
-};
-</script>
+
 </head>
 <body>
 <nav class="cc-main-nav"><a href="/" title="Abrir decupagens">▦ Decupagem</a><a href="/roteiros.html" class="selected" title="Abrir roteiros">✎ Roteiros</a></nav>
@@ -530,5 +478,58 @@ window.renderizarBaixar=function(){
             atualizarLista();
         };
     </script>
+<script>
+/* Exportação nativa do roteiro: paginação A4, sem recortar tela longa. */
+window.renderizarBaixar=function(){
+ const ed=document.getElementById('editor'),titulo=document.getElementById('input-titulo').value||'Roteiro';
+ if(!window.jspdf?.jsPDF){alert('Não foi possível carregar o gerador. Verifique a conexão e atualize.');return}
+ try{
+  salvarNoBanco();
+  const pdf=new window.jspdf.jsPDF({unit:'mm',format:'a4',orientation:'portrait',compress:true}),maxY=273;
+  let y=25;
+  const font=(weight='normal',size=11)=>{pdf.setFont('courier',weight);pdf.setFontSize(size);pdf.setTextColor(32,29,26)};
+  const newPage=()=>{pdf.addPage();y=25};
+  const paragraph=(str,kind='acao')=>{
+   let content=String(str||'').replace(/\s+/g,' ').trim();if(!content){y+=4;return}
+   let x=25,w=160,align='left',gap=2,sz=11;
+   if(kind==='personagem'){x=62;w=86;align='center';gap=7}
+   if(kind==='dialogo'){x=53;w=105;gap=0}
+   if(kind==='parenteses'){x=65;w=80;align='center';gap=0}
+   if(kind==='transicao'){x=105;w=80;align='right';gap=7}
+   if(kind==='scene'||kind==='header'){gap=8}
+   const bold=['personagem','transicao','scene','header','section'].includes(kind);
+   font(bold?'bold':'normal',sz);
+   const lines=pdf.splitTextToSize(content,w);
+   if(y+gap+Math.min(lines.length*5,20)>maxY)newPage();y+=gap;
+   for(const line of lines){if(y+5>maxY)newPage();pdf.text(line,align==='center'?x+w/2:align==='right'?x+w:x,y,{align});y+=5}
+   y+=2;
+  };
+  const table=(t)=>{
+   const trs=[...t.querySelectorAll('tr')];let first=true;
+   for(const tr of trs){
+    const cells=[...tr.querySelectorAll('td,th')];if(!cells.length)continue;
+    const left=(cells[0]?.innerText||cells[0]?.textContent||'').trim();
+    const right=(cells[1]?.innerText||cells[1]?.textContent||'').trim();
+    font(first?'bold':'normal',9.5);const A=pdf.splitTextToSize(left,72),B=pdf.splitTextToSize(right,72);
+    const all=Math.max(A.length,B.length,1);let offset=0;
+    while(offset<all){if(y+12>maxY)newPage();
+      const lines=Math.max(1,Math.min(all-offset,Math.floor((maxY-y-9)/4.4)));
+      pdf.setDrawColor(218,206,193);pdf.rect(25,y-3,160,lines*4.4+8);pdf.line(105,y-3,105,y+lines*4.4+5);
+      pdf.text(A.slice(offset,offset+lines),29,y+2);pdf.text(B.slice(offset,offset+lines),109,y+2);
+      y+=lines*4.4+11;offset+=lines;
+    }first=false;
+   }
+  };
+  for(const node of [...ed.children]){
+    if(node.tagName==='TABLE'){table(node);continue}
+    let klass=[...node.classList].find(Boolean)||'acao';
+    if(node.tagName==='BR'){y+=4;continue}
+    paragraph(node.innerText||node.textContent,klass);
+  }
+  for(let n=1;n<=pdf.getNumberOfPages();n++){pdf.setPage(n);pdf.setFont('helvetica','normal');pdf.setFontSize(8);pdf.setTextColor(141,122,104);pdf.text(titulo.substring(0,70),25,285);pdf.text(String(n),185,285,{align:'right'})}
+  pdf.save(titulo.replace(/[^a-zA-Z0-9_-]+/g,'_').slice(0,70)+'.pdf');
+ }catch(e){console.error(e);alert('Erro ao exportar: '+e.message)}
+};
+</script>
 </body>
 </html>
