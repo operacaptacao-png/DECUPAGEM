@@ -478,8 +478,7 @@ main{margin-top:58px;min-width:0}
             const titulo = document.getElementById('input-titulo').value || 'Roteiro';
             const conteudo = document.getElementById('editor').innerHTML;
             const css = `<style>body { font-family: 'Courier New', Courier, monospace; font-size: 12pt; }.personagem { text-align: center; text-transform: uppercase; margin-top: 25px; font-weight: bold; }.parenteses { text-align: center; font-style: italic; margin-left: 20%; margin-right: 20%; }.dialogo { margin: 0 15% 10px 15%; }.acao { margin-bottom: 12px; }.transicao { text-align: right; text-transform: uppercase; margin-top: 15px; margin-bottom: 15px; font-weight: bold; } table { width: 100%; border-collapse: collapse; } td { padding: 10px; vertical-align: top; }</style>`;
-            const htmlCompleto = "<html><head><meta charset='utf-8'>" + css + "</head><body>" + conteudo + "<script src="./roteiro-pdf.js"></script>
-</body></html>";
+            const htmlCompleto = "<html><head><meta charset='utf-8'>" + css + "</head><body>" + conteudo + "</body></html>";
             const blob = new Blob(['\ufeff', htmlCompleto], { type: 'application/msword' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
@@ -557,5 +556,6 @@ window.renderizarBaixar=function(){
  }catch(e){console.error(e);alert('Erro ao exportar: '+e.message)}
 };
 </script>
+<script src="./roteiro-pdf.js"></script>
 </body>
 </html>
