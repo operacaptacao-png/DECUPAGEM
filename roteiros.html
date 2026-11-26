@@ -148,6 +148,7 @@
             #tela-editor { background: white; }
             .folha-roteiro { box-shadow: none; border: none; margin: 0; padding: 0; }
         }
+.cc-card-icon{font-size:39px;display:block;line-height:1.15;margin-bottom:13px;color:#a47854}.cartao:hover .cc-card-icon{transform:translateY(-2px)}
     </style>
 <style>
 :root{--red-accent:#9f6d4b;--blue-pub:#a78360;--purple-curto:#9a7c69;--yellow-teatro:#d6aa69;--green-pod:#b08c66;--orange-yt:#bd865d;--grey-doc:#9d9388;--white-clean:#3e322b;--dark-bg:#f3ebdf;--bg-foco:#eee3d4}
@@ -220,25 +221,25 @@ main{margin-top:58px;min-width:0}
             
             <div class="opcoes-grid">
                 <div class="cartao" id="card-cinema" onclick="selecionarModo('cinema')">
-                    <img src="https://i.postimg.cc/WbTpXzLm/cinema-png.png" alt="Cinema">CINEMA
+                    <span class="cc-card-icon" aria-hidden="true">🎬</span>CINEMA
                 </div>
                 <div class="cartao" id="card-publicidade" onclick="selecionarModo('publicidade')">
-                    <img src="https://i.postimg.cc/bNy815k4/publicidade-png.png" alt="Publicidade">PUBLICIDADE
+                    <span class="cc-card-icon" aria-hidden="true">◧</span>PUBLICIDADE
                 </div>
                 <div class="cartao" id="card-curto" onclick="selecionarModo('curto')">
-                    <img src="https://i.postimg.cc/0jfsLGRc/celular-png.png" alt="Vídeo Curto">VÍDEO CURTO
+                    <span class="cc-card-icon" aria-hidden="true">▣</span>VÍDEO CURTO
                 </div>
                 <div class="cartao" id="card-teatro" onclick="selecionarModo('teatro')">
-                    <img src="https://i.postimg.cc/DwmTMbCS/teatro-png.png" alt="Teatro">TEATRO
+                    <span class="cc-card-icon" aria-hidden="true">◈</span>TEATRO
                 </div>
                 <div class="cartao" id="card-podcast" onclick="selecionarModo('podcast')">
-                    <img src="https://i.postimg.cc/1XPSCCT1/podcast-png.png" alt="Podcast">PODCAST
+                    <span class="cc-card-icon" aria-hidden="true">◉</span>PODCAST
                 </div>
                 <div class="cartao" id="card-youtube" onclick="selecionarModo('youtube')">
-                    <img src="https://i.postimg.cc/Gpy1cnn3/youtube-png.png" alt="YouTube">YOUTUBE
+                    <span class="cc-card-icon" aria-hidden="true">▶</span>YOUTUBE
                 </div>
                 <div class="cartao" id="card-documentario" onclick="selecionarModo('documentario')">
-                    <img src="https://i.postimg.cc/25srv87b/cinema-png.png" alt="Documentário">DOCUMENTÁRIO
+                    <span class="cc-card-icon" aria-hidden="true">▤</span>DOCUMENTÁRIO
                 </div>
             </div>
 
@@ -254,7 +255,7 @@ main{margin-top:58px;min-width:0}
                 <input type="file" id="input-importar" accept=".txt,.md,.docx" style="display: none;">
 
                 <div style="flex-grow: 1;"></div> 
-                <button class="btn-pill" style="background:white; color:black; border: 2px solid #ccc; padding: 10px 20px; font-size: 0.7rem;" onclick="baixarWord()">Word (.doc)</button>
+                <button class="btn-pill" style="background:white; color:black; border: 2px solid #ccc; padding: 10px 20px; font-size: 0.7rem;" onclick="baixarWord()">Word (.doc)</button><button class="btn-pill cc-toolbar-secondary" onclick="baixarBackupRoteiro()" title="Guardar cópia editável">Backup</button>
                 <button class="btn-pill btn-red" style="padding: 10px 20px; font-size: 0.7rem;" onclick="renderizarBaixar()">Baixar PDF</button>
             </div><small id="cc-save-indicator" class="cc-save-indicator">● Salvamento automático</small>
             <div id="editor" class="folha-roteiro" contenteditable="true"></div>
@@ -322,6 +323,8 @@ main{margin-top:58px;min-width:0}
 
         function voltarNavegacao() {
             if (document.getElementById('tela-editor').style.display === 'flex') {
+                clearTimeout(timerSalvamento);
+                if(idAtual || document.getElementById('editor').innerHTML.trim()) salvarNoBanco();
                 document.getElementById('tela-editor').style.display = 'none';
                 document.getElementById('tela-inicial').style.display = 'flex';
                 idAtual = null;
@@ -426,6 +429,7 @@ main{margin-top:58px;min-width:0}
         }
 
         function carregar(id) {
+            if(timerSalvamento){clearTimeout(timerSalvamento);salvarNoBanco();timerSalvamento=null;}
             const bd = JSON.parse(localStorage.getItem('meu_roteiro_bd') || '{}');
             idAtual = id;
             modoAtivo = bd[id].tipo;
@@ -477,7 +481,16 @@ main{margin-top:58px;min-width:0}
             document.getElementById('saudacao-user').textContent='ESTÚDIO DE ROTEIROS';
             atualizarLista();
         };
-    </script>
+    
+function baixarBackupRoteiro(){
+ try{
+  if(timerSalvamento){clearTimeout(timerSalvamento);timerSalvamento=null;salvarNoBanco();}
+  const bd=JSON.parse(localStorage.getItem('meu_roteiro_bd')||'{}'),data={application:'CENACURTA',version:1,exportedAt:new Date().toISOString(),projects:bd};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Backup_CenaCurta_Roteiros.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1200);
+ }catch(e){alert('Não foi possível exportar o backup. '+e.message)}
+}
+</script>
 <script>
 /* Exportação nativa do roteiro: paginação A4, sem recortar tela longa. */
 window.renderizarBaixar=function(){
