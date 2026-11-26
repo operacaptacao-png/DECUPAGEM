@@ -4,9 +4,9 @@
 (function () {
   'use strict';
   const C = {
-    navy: [23, 35, 52], ink: [31, 46, 65], muted: [95, 111, 131],
-    accent: [189, 124, 57], bg: [244, 246, 249], white: [255, 255, 255],
-    border: [213, 221, 230], pale: [236, 241, 245], stripe: [236, 241, 245]
+    navy: [61, 46, 37], ink: [59, 48, 40], muted: [130, 111, 95],
+    accent: [160, 108, 73], bg: [247, 242, 234], white: [255, 253, 248],
+    border: [225, 211, 195], pale: [241, 231, 217], stripe: [247, 241, 232]
   };
   const PAGE_W = 297, PAGE_H = 210, LEFT = 10, WIDTH = 277;
   const TOP = 31, BOTTOM = 198, GAP = 4;
@@ -77,7 +77,15 @@
       ['AÇÃO DA CENA', scene.action],
       ['ENQUADRAMENTO / MOVIMENTO', scene.framing],
       ['LOCAÇÃO INDICADA', scene.location],
-      ['NECESSIDADES DA CENA', scene.needs],
+      ['FIGURINO', scene.wardrobe],
+      ['CENÁRIO / AMBIENTAÇÃO', scene.scenery],
+      ['OBJETOS DE CENA', scene.props],
+      ['ELENCO / FIGURANTES', scene.cast],
+      ['MAQUIAGEM / CARACTERIZAÇÃO', scene.makeup],
+      ['SOM', scene.sound],
+      ['ILUMINAÇÃO', scene.lighting],
+      ['OUTRAS NECESSIDADES', scene.otherNeeds],
+      ['ANOTAÇÕES ANTERIORES', scene.needs],
       ['DESCRIÇÃO COMPLEMENTAR', scene.notes]
     ].filter(([, v]) => get(v).trim());
     const chunks = []; let chunk = [], height = 0;
